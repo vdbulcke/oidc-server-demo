@@ -11,3 +11,14 @@ built on the shoulders of giants [https://github.com/oauth2-proxy/mockoidc](http
 
 * OIDC Flows: Authorization Code, Refresh Token, PKCE => from `https://github.com/oauth2-proxy/mockoidc` 
 * Generic Mock Users: Inject Arbitrary structured claims in ID Token and/or userinfo.
+
+## Documentation
+
+Install, configuration documentation can be found at [https://vdbulcke.github.io/oidc-server-demo/](https://vdbulcke.github.io/oidc-server-demo/).
+
+## tl;dr
+
+Start the server with
+```bash
+oidc-server start --config example/config.yaml
+```
