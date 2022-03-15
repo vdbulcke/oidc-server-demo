@@ -11,7 +11,7 @@
 client_id: oidc-client-demo
 client_secret: secret
 
-## Issue Base Url (Optional)
+## Issuer Base Url (Optional)
 ### Set the base url for the OIDC server
 ### Issuer is generated using
 ###    issuer_base_url + '/oidc'
