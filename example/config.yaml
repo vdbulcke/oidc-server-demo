@@ -1,0 +1,76 @@
+---
+
+
+## Client Credentials: (Mandatory)
+### NOTE: those client_id/client_secret can be passed
+###       as environment variables with: 
+###
+###    export OIDC_CLIENT_ID=my_client_id
+###    export OIDC_CLIENT_SECRET=my_client_id
+###
+client_id: oidc-client-demo
+client_secret: secret
+
+## Issue Base Url (Optional)
+### Set the base url for the OIDC server
+### Issuer is generated using
+###    issuer_base_url + '/oidc'
+###
+### Default: http://127.0.0.1:5557
+# issuer_base_url: http://oidc.example.com:8080
+
+
+## Supported Scropes (optional)
+### List of supported scropes by the OIDC server
+### Default to same default as https://github.com/oauth2-proxy/mockoidc
+# supported_scopes: 
+# - openid
+# - profile
+# - roles
+
+### Supported challenge method (Optional)
+###
+### Default: 
+###  - S256
+###  - plain
+###
+# pkce_challenge_methods:
+# - plain
+# - S256
+
+
+
+## Mock User (Mandatory)
+## 
+mock_user:
+  ## Sub  (Mandatory)
+  ###  the user's subject
+  sub: bob@acme.com
+
+  ## ID Token Claims (mandatory)
+  ### Arbitrary key/values claims to 
+  ### add in the id_token
+  ### 
+  ### Empty set to '{}'
+  id_token_claims: 
+    ## example adding amr values
+    amr:
+      - eid
+      - urn:be:fedict:iam:fas:Level500
+    
+    ## dummy claims
+    foo: bar
+
+
+  ## Userinfo Claims (optional)
+  ### Arbitrary key/values claims to 
+  ### add in the userinfo response
+  ### 
+  ### Empty set to '{}'
+  userinfo_claims: 
+
+    ## example 
+    fedid: "73691e9e7beee3becdf78fc9394d28fe548fe249"
+    surname: Jane
+    givenName: Doe
+    
