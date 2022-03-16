@@ -1,4 +1,4 @@
-name: goreleaser
+name: Release
 
 
 ## Ref: https://goreleaser.com/ci/actions/#github-actions
