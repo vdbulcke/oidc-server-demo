@@ -3,9 +3,9 @@ name: Release
 
 ## Ref: https://goreleaser.com/ci/actions/#github-actions
 on:
-  # push: 
-  #   tags: 
-  #     - 'v*'
+  push: 
+    tags: 
+      - 'v*'
   create: 
     tags: 
       - 'v*'
