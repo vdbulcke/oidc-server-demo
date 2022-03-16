@@ -22,7 +22,7 @@ builds:
       # - 386
     ldflags:
       ## auto inject commit and version at build time
-      -  -X github.com/vdbulcke/oidc-server-demo/cmd.GitCommit={{ .ShortCommit }} -X github.com/vdbulcke/oidc-server-demo/cmd.Version={{ .Version }}   -X github.com/vdbulcke/oidc-server-demo/cmd.Date={{ .CommitDate }} -X github.com/vdbulcke/oidc-server-demo/cmd.BuiltBy=goreleaser
+      -  -X github.com/vdbulcke/oidc-server-demo/cmd.GitCommit={{ .ShortCommit }} -X github.com/vdbulcke/oidc-server-demo/cmd.Version=v{{ .Version }}   -X github.com/vdbulcke/oidc-server-demo/cmd.Date={{ .CommitDate }} -X github.com/vdbulcke/oidc-server-demo/cmd.BuiltBy=goreleaser
 archives:
   - 
     replacements:
@@ -76,13 +76,38 @@ changelog:
       order: 999
 
 
-# release:
-#   ## set github header and footer
-#   header: |
-#     ## My Custom Header
+dockers:
+  - 
+    # GOOS of the built binaries/packages that should be used.
+    goos: linux
 
-#     some text
+    # GOARCH of the built binaries/packages that should be used.
+    goarch: amd64
 
+    # GOARM of the built binaries/packages that should be used.
+    goarm: ''
+
+    image_templates:
+    - "vdbulcke/oidc-server:v{{ .Version }}"
+
+release:
+  ## set github header and footer
+  header: |
+    ## Docker
+
+    
+    ```bash
+    docker pull vdbulcke/oidc-server:v{{ .Version }}
+    ```
+
+    ### Run
+
+    ```bash 
+    docker run --rm  -v /path/to/your/config.yaml:/app/config.yaml:z -p 8080:5557 vdbulcke/oidc-server:v{{ .Version }} --debug 
+    ```
+
+    NOTE: the `issuer_base_url` is required for docker.
+    
 #   # Footer template for the release body.
 #   # Defaults to empty.
 #   footer: |
