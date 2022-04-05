@@ -1,0 +1,29 @@
+sub: john.doe@acme.com
+
+## ID Token Claims (mandatory)
+### Arbitrary key/values claims to
+### add in the id_token
+###
+### Empty set to '{}'
+id_token_claims:
+  ## example adding amr values
+  amr:
+    - eid
+    - urn:be:fedict:iam:fas:Level500
+
+  ## dummy claims
+  foo: bar
+
+
+  ## Userinfo Claims (optional)
+  ### Arbitrary key/values claims to
+  ### add in the userinfo response
+  ###
+  ### Empty set to '{}'
+  userinfo_claims:
+
+    ## example
+    fedid: "F8nZR6mFFlvyGd85CE5Qu5iFD4qaAGivWHdW1evt"
+    surname: John
+    givenName: Doe
+

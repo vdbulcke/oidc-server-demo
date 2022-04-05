@@ -18,6 +18,8 @@ type OIDCServerConfig struct {
 	IssuerBaseUrl                 string   `yaml:"issuer_base_url" `
 
 	MockUser YAMLUser `yaml:"mock_user" validate:"required"`
+	// Folder where to find mocked user if not defined the user in mock_user will be returned
+	MockUserFolder string `yaml:"mock_user_folder"`
 
 	// Listen Address
 	ListenAddress string

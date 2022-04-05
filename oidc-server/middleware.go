@@ -15,8 +15,10 @@ func (s *OIDCServer) InfiniteMockUserMiddleware(next http.Handler) http.Handler 
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 
 		if strings.HasSuffix(req.URL.Path, "authorize") {
-			s.logger.Debug("adding mock user to queue")
-			s.m.QueueUser(&s.config.MockUser)
+			if len(s.m.UserQueue.Queue) == 0 {
+				s.logger.Debug("adding mock user to queue")
+				s.m.QueueUser(&s.config.MockUser)
+			}
 		}
 
 		// custom middleware logic here...
