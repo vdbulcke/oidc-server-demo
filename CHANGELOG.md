@@ -2,6 +2,13 @@
 ## [Unreleased]
 
 
+<a name="v0.3.0"></a>
+## [v0.3.0] - 2022-04-06
+### Features
+- 1e4392f - Add list of mock user from dir ([#4](https://github.com/vdbulcke/oidc-server-demo/issues/4))
+- e942564 - provide list of mock user instead of a single mock user
+
+
 <a name="v0.2.0"></a>
 ## [v0.2.0] - 2022-03-16
 ### Features
@@ -15,5 +22,6 @@
 - 2a8394b - Standalone mock oidc server
 
 
-[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.3.0...HEAD
+[v0.3.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.1.0...v0.2.0
