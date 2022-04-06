@@ -15,15 +15,15 @@ id_token_claims:
   foo: bar
 
 
-  ## Userinfo Claims (optional)
-  ### Arbitrary key/values claims to
-  ### add in the userinfo response
-  ###
-  ### Empty set to '{}'
-  userinfo_claims:
+## Userinfo Claims (optional)
+### Arbitrary key/values claims to
+### add in the userinfo response
+###
+### Empty set to '{}'
+userinfo_claims:
 
-    ## example
-    fedid: "F8nZR6mFFlvyGd85CE5Qu5iFD4qaAGivWHdW1evt"
-    surname: John
-    givenName: Doe
+  ## example
+  fedid: "F8nZR6mFFlvyGd85CE5Qu5iFD4qaAGivWHdW1evt"
+  surname: John
+  givenName: Doe
 

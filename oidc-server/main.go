@@ -3,11 +3,13 @@ package oidcserver
 import (
 	"crypto/rand"
 	"crypto/rsa"
-	"gopkg.in/yaml.v2"
 	"log"
 	"net"
 	"os"
 	"path/filepath"
+	"strings"
+
+	"gopkg.in/yaml.v2"
 
 	"github.com/oauth2-proxy/mockoidc"
 	"go.uber.org/zap"
@@ -62,9 +64,30 @@ func NewOIDCServer(l *zap.Logger, c *OIDCServerConfig) (*OIDCServer, error) {
 
 	// load user in the queue
 	if c.MockUserFolder != "" {
-		for _, user := range GetMockedUsers(c.MockUserFolder) {
-			l.Debug("adding mock user to queue", zap.String("user", user.ID()))
-			m.QueueUser(&user)
+		// go over each YAML file in mock user dir
+		err := filepath.Walk(c.MockUserFolder, func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				l.Error("Error accessing file", zap.String("path", path), zap.Error(err))
+				return err
+			}
+
+			// parse yaml files only
+			if strings.HasSuffix(info.Name(), ".yml") || strings.HasSuffix(info.Name(), ".yaml") {
+				user, err := ReadMockUser(path)
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				l.Debug("adding mock user to queue", zap.String("user", user.ID()), zap.String("path", path))
+				m.QueueUser(user)
+			}
+
+			// skip other files
+			return nil
+		})
+		if err != nil {
+			l.Error("error walking dir", zap.String("dir", c.MockUserFolder), zap.Error(err))
+			return nil, err
 		}
 	}
 
@@ -76,38 +99,17 @@ func NewOIDCServer(l *zap.Logger, c *OIDCServerConfig) (*OIDCServer, error) {
 	}, nil
 }
 
-
-func GetMockedUsers(dir string) []YAMLUser {
-	users := make([]YAMLUser, 0)
-
-	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			log.Fatal(err)
-		}
-		if info.IsDir() {
-			return nil
-		}
-		user, err := ReadMockUser(path)
-		if err != nil {
-			log.Fatal(err)
-		}
-		users = append(users, user)
-		return nil
-	})
-	return users
-}
-
-func ReadMockUser(path string) (YAMLUser, error) {
+func ReadMockUser(path string) (*YAMLUser, error) {
 	var user YAMLUser
 	//log.Printf("Reading mock user from filename: %s\n", path)
 	yamlBytes, err := os.ReadFile(path)
 	if err != nil {
-		return user,err
+		return nil, err
 	}
 
 	err = yaml.Unmarshal(yamlBytes, &user)
 	if err != nil {
-		return user,err
+		return nil, err
 	}
-	return user, nil
+	return &user, nil
 }

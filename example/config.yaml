@@ -40,7 +40,7 @@ client_secret: secret
 
 
 
-## Mock User (Mandatory)
+## Default Mock User (Mandatory)
 ## 
 mock_user:
   ## Sub  (Mandatory)
@@ -71,6 +71,11 @@ mock_user:
 
     ## example 
     fedid: "73691e9e7beee3becdf78fc9394d28fe548fe249"
-    surname: Jane
-    givenName: Doe
-    
+    surname: Bob
+
+
+##
+## Additional Mock Users
+##  since version v0.3.0
+### Users loaded in the UserQueue
+mock_user_folder: ./example/users

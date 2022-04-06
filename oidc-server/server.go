@@ -17,7 +17,6 @@ func (s *OIDCServer) StartServer(debug bool) error {
 		return err
 	}
 
-	s.m.QueueUser(&s.config.MockUser)
 	if debug {
 		s.logger.Debug("Adding DebugLoggerMiddleware")
 		err := s.m.AddMiddleware(s.DebugLoggerMiddleware)
