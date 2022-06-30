@@ -65,7 +65,7 @@ mock_user:
 
     hello: world
 
-  ## ID Token Claims (Optional)
+  ## Access Token Claims (Optional)
   ### Arbitrary key/values claims to 
   ### add in the access_token
   ### 
