@@ -32,6 +32,20 @@ mock_user:
     ## dummy claims
     foo: bar
 
+  ## Access Token Claims (Optional)
+  ### Arbitrary key/values claims to 
+  ### add in the access_token
+  ### 
+  access_token_claims: 
+    amr:
+      - eid
+      - urn:be:fedict:iam:fas:Level500
+    
+    foo: 
+      - hello: world
+      - bar: baz
+
+
 
   ## Userinfo Claims (optional)
   ### Arbitrary key/values claims to 
@@ -47,6 +61,9 @@ mock_user:
     
 ```
 
+
+!!! note
+    Access Token Claims are introduced in release `v0.4.0`, but are not mandatory for backward compatibility
 
 ## Multiple Mock Users
 
@@ -86,6 +103,13 @@ id_token_claims:
 
   ## dummy claims
   foo: bar
+
+## Access Token Claims (Optional)
+### Arbitrary key/values claims to 
+### add in the access_token
+### 
+access_token_claims: 
+  custom: claims
 
 
 ## Userinfo Claims (optional)
