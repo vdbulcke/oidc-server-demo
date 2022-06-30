@@ -22,6 +22,9 @@ id_token_claims:
 ### Empty set to '{}'
 userinfo_claims:
 
+  ## Mandatory claim
+  sub: john.doe@acme.com
+
   ## example
   fedid: "F8nZR6mFFlvyGd85CE5Qu5iFD4qaAGivWHdW1evt"
   surname: John

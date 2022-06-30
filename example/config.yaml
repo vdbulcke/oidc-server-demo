@@ -59,7 +59,25 @@ mock_user:
       - urn:be:fedict:iam:fas:Level500
     
     ## dummy claims
-    foo: bar
+    foo: 
+      - hello: world
+      - bar: baz
+
+    hello: world
+
+  ## ID Token Claims (Optional)
+  ### Arbitrary key/values claims to 
+  ### add in the access_token
+  ### 
+  access_token_claims: 
+    amr:
+      - eid
+      - urn:be:fedict:iam:fas:Level500
+    
+    foo: 
+      - hello: world
+      - bar: baz
+
 
 
   ## Userinfo Claims (optional)
@@ -69,9 +87,16 @@ mock_user:
   ### Empty set to '{}'
   userinfo_claims: 
 
+    ## Mandatory claim
+    sub: bob@acme.com
+
     ## example 
     fedid: "73691e9e7beee3becdf78fc9394d28fe548fe249"
     surname: Bob
+
+    foo: 
+      - hello: world
+      - bar: baz
 
 
 ##

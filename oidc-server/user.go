@@ -28,9 +28,10 @@ func convert(i interface{}) interface{} {
 }
 
 type YAMLUser struct {
-	Subject        string                      `yaml:"sub,omitempty" validate:"required"`
-	IDTokenClaims  jwt.MapClaims               `yaml:"id_token_claims,omitempty"  validate:"required"`
-	UserinfoClaims map[interface{}]interface{} `yaml:"userinfo_claims,omitempty"  validate:"required"`
+	Subject               string                      `yaml:"sub,omitempty" validate:"required"`
+	IDTokenClaims         map[interface{}]interface{} `yaml:"id_token_claims,omitempty"  validate:"required"`
+	UserAccessTokenClaims map[interface{}]interface{} `yaml:"access_token_claims,omitempty" `
+	UserinfoClaims        map[interface{}]interface{} `yaml:"userinfo_claims,omitempty"  validate:"required"`
 }
 
 func (u *YAMLUser) ID() string {
@@ -44,16 +45,53 @@ func (u *YAMLUser) Userinfo(scope []string) ([]byte, error) {
 
 func (u *YAMLUser) Claims(scope []string, claims *mockoidc.IDTokenClaims) (jwt.Claims, error) {
 
-	u.IDTokenClaims["aud"] = claims.Audience
-	u.IDTokenClaims["exp"] = claims.ExpiresAt
-	u.IDTokenClaims["jti"] = claims.Id
-	u.IDTokenClaims["iat"] = claims.IssuedAt
-	u.IDTokenClaims["iss"] = claims.Issuer
-	u.IDTokenClaims["nbf"] = claims.NotBefore
-	u.IDTokenClaims["sub"] = claims.Subject
-	u.IDTokenClaims["nonce"] = claims.Nonce
+	userClaims := jwt.MapClaims{}
 
-	return u.IDTokenClaims, nil
+	// merge standard claims into User Access Token Claims
+	userClaims["aud"] = claims.Audience
+	userClaims["exp"] = claims.ExpiresAt
+	userClaims["jti"] = claims.Id
+	userClaims["iat"] = claims.IssuedAt
+	userClaims["iss"] = claims.Issuer
+	userClaims["nbf"] = claims.NotBefore
+	userClaims["sub"] = claims.Subject
+	userClaims["nonce"] = claims.Nonce
+
+	// convert to map[string]interface{}
+	for k, v := range u.IDTokenClaims {
+		userClaims[k.(string)] = convert(v)
+	}
+
+	// return u.UserAccessTokenClaims, nil
+	return userClaims, nil
+
+}
+
+// AccessTokenClaims just return standard claims
+func (u *YAMLUser) AccessTokenClaims(claims *jwt.StandardClaims) (jwt.Claims, error) {
+
+	if u.UserAccessTokenClaims != nil {
+
+		userClaims := jwt.MapClaims{}
+
+		// merge standard claims into User Access Token Claims
+		userClaims["aud"] = claims.Audience
+		userClaims["exp"] = claims.ExpiresAt
+		userClaims["jti"] = claims.Id
+		userClaims["iat"] = claims.IssuedAt
+		userClaims["iss"] = claims.Issuer
+		userClaims["nbf"] = claims.NotBefore
+		userClaims["sub"] = claims.Subject
+
+		for k, v := range u.UserAccessTokenClaims {
+			userClaims[k.(string)] = convert(v)
+		}
+
+		// return u.UserAccessTokenClaims, nil
+		return userClaims, nil
+	}
+
+	return claims, nil
 }
 
 func NewYAMLUser(filename string) (*YAMLUser, error) {

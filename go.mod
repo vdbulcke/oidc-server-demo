@@ -26,4 +26,6 @@ require (
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 )
 
-replace github.com/oauth2-proxy/mockoidc => github.com/vdbulcke/mockoidc v0.1.0
+replace github.com/oauth2-proxy/mockoidc => github.com/vdbulcke/mockoidc v0.2.0
+
+// replace github.com/oauth2-proxy/mockoidc => ../mockoidc
