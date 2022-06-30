@@ -14,6 +14,7 @@ import (
 var configFilename string
 var listenAddr string
 var port int
+var accessLog bool
 
 // default
 var DefaultListeningAddress = "127.0.0.1"
@@ -26,6 +27,7 @@ func init() {
 	startCmd.Flags().StringVarP(&configFilename, "config", "c", "", "oidc server config file")
 	startCmd.Flags().StringVarP(&listenAddr, "listen-addr", "", DefaultListeningAddress, "oidc server listening address")
 	startCmd.Flags().IntVarP(&port, "port", "p", DefaultListeningPost, "oidc server call back port")
+	startCmd.Flags().BoolVarP(&accessLog, "access-log", "", false, "enable access log")
 
 	// required flags
 	//nolint
@@ -71,6 +73,9 @@ func runServer(cmd *cobra.Command, args []string) {
 	config.ListenAddress = listenAddr
 	config.ListenPort = port
 
+	config.AccessLog = accessLog
+	config.Debug = Debug
+
 	// validate config
 	if !oidcserver.ValidateConfig(config) {
 		logger.Error("validating config", zap.Error(errors.New("Validation Error")))
@@ -84,7 +89,7 @@ func runServer(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	err = s.StartServer(Debug)
+	err = s.StartServer()
 	if err != nil {
 		logger.Error("starting server", zap.Error(err))
 		os.Exit(1)

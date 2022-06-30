@@ -25,6 +25,10 @@ type OIDCServerConfig struct {
 	ListenAddress string
 	// Listen Port
 	ListenPort int
+
+	// internal
+	AccessLog bool
+	Debug     bool
 }
 
 // ValidateConfig validate config

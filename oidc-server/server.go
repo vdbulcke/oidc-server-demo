@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func (s *OIDCServer) StartServer(debug bool) error {
+func (s *OIDCServer) StartServer() error {
 
 	// add middleware
 	s.logger.Debug("Adding InfiniteMockUserMiddleware")
@@ -17,7 +17,7 @@ func (s *OIDCServer) StartServer(debug bool) error {
 		return err
 	}
 
-	if debug {
+	if s.config.Debug || s.config.AccessLog {
 		s.logger.Debug("Adding DebugLoggerMiddleware")
 		err := s.m.AddMiddleware(s.DebugLoggerMiddleware)
 		if err != nil {
