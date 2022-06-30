@@ -2,6 +2,13 @@
 ## [Unreleased]
 
 
+<a name="v0.4.0"></a>
+## [v0.4.0] - 2022-06-30
+### Features
+- 8eecf14 - add flag to enable access log ([#7](https://github.com/vdbulcke/oidc-server-demo/issues/7))
+- 008b08f - Add user access token claims ([#5](https://github.com/vdbulcke/oidc-server-demo/issues/5))
+
+
 <a name="v0.3.0"></a>
 ## [v0.3.0] - 2022-04-06
 ### Features
@@ -22,6 +29,7 @@
 - 2a8394b - Standalone mock oidc server
 
 
-[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.4.0...HEAD
+[v0.4.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.1.0...v0.2.0
