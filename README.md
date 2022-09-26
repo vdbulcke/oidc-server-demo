@@ -10,6 +10,7 @@ Built on the shoulders of giants [https://github.com/oauth2-proxy/mockoidc](http
 ## Features
 
 * OIDC Flows: Authorization Code, Refresh Token, PKCE => from `https://github.com/oauth2-proxy/mockoidc` 
+* Pushed Authorization Request
 * Generic Mock Users: Inject Arbitrary structured claims in ID Token and/or userinfo.
 
 ## Documentation
