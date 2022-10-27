@@ -1,6 +1,7 @@
 package oidcserver
 
 import (
+	"context"
 	"crypto/rand"
 	"crypto/rsa"
 	"log"
@@ -9,10 +10,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"gopkg.in/yaml.v2"
-
+	vault "github.com/hashicorp/vault/api"
 	"github.com/oauth2-proxy/mockoidc"
+	"github.com/vdbulcke/oidc-server-demo/oidc-server/internal/crypto"
 	"go.uber.org/zap"
+	"gopkg.in/yaml.v2"
 )
 
 type OIDCServer struct {
@@ -33,18 +35,54 @@ func NewOIDCServer(l *zap.Logger, c *OIDCServerConfig) (*OIDCServer, error) {
 
 	}
 
-	// Create a fresh RSA Private Key for token signing
-	rsaKey, err := rsa.GenerateKey(rand.Reader, 2048)
-	if err != nil {
-		l.Error("generating RSA key", zap.Error(err))
-		return nil, err
-	}
+	// instantiate the mock oidc server
+	// with the selected crypto backend
+	var m *mockoidc.MockOIDC
 
-	// Create an unstarted MockOIDC server
-	m, err := mockoidc.NewServer(rsaKey)
-	if err != nil {
-		l.Error("generating MockOIDC", zap.Error(err))
-		return nil, err
+	if c.VaultCryptoBackend == nil {
+
+		// Create a fresh RSA Private Key for token signing
+		rsaKey, err := rsa.GenerateKey(rand.Reader, 2048)
+		if err != nil {
+			l.Error("generating RSA key", zap.Error(err))
+			return nil, err
+		}
+
+		// Create an unstarted MockOIDC server
+		m, err = mockoidc.NewServer(rsaKey)
+		if err != nil {
+			l.Error("generating MockOIDC", zap.Error(err))
+			return nil, err
+		}
+	} else {
+
+		// create vault client
+		client, err := CreateVaultClient(c)
+		if err != nil {
+			l.Error("Error creating Vault client", zap.Error(err))
+			return nil, err
+		}
+
+		ctx := context.Background()
+
+		// create the Vault Crypto backend
+		vaultCB, err := crypto.NewVaultTransitCryptoBackend(
+			ctx, l, client,
+			c.VaultCryptoBackend.JWTSigningAlg,
+			c.VaultCryptoBackend.SyncPeriodDuration,
+			c.VaultCryptoBackend.TransitMount,
+			c.VaultCryptoBackend.TransitKeyName)
+		if err != nil {
+			l.Error("generating Crypto backend", zap.Error(err))
+			return nil, err
+		}
+
+		m, err = mockoidc.NewServerWithCryptoBackend(vaultCB)
+		if err != nil {
+			l.Error("generating MockOIDC", zap.Error(err))
+			return nil, err
+		}
+
 	}
 
 	// Create the net.Listener on the exact IP:Port you want
@@ -112,4 +150,32 @@ func ReadMockUser(path string) (*YAMLUser, error) {
 		return nil, err
 	}
 	return &user, nil
+}
+
+func CreateVaultClient(c *OIDCServerConfig) (*vault.Client, error) {
+	config := vault.DefaultConfig()
+	config.Address = c.VaultCryptoBackend.VaultAddress
+
+	// tls
+	tlsConfig := &vault.TLSConfig{
+		// CACert:   c.CACertPEMPath,
+		Insecure: false,
+	}
+
+	err := config.ConfigureTLS(tlsConfig)
+	if err != nil {
+		return nil, err
+	}
+
+	// create new client
+	client, err := vault.NewClient(config)
+	if err != nil {
+
+		return nil, err
+	}
+
+	// Authentication Token
+	client.SetToken(c.VaultCryptoBackend.VaultToken)
+
+	return client, nil
 }

@@ -2,11 +2,11 @@ package cmd
 
 import (
 	"errors"
-	"log"
 	"os"
 
 	"github.com/spf13/cobra"
 	oidcserver "github.com/vdbulcke/oidc-server-demo/oidc-server"
+	"github.com/vdbulcke/oidc-server-demo/oidc-server/logger"
 	"go.uber.org/zap"
 )
 
@@ -46,19 +46,7 @@ var startCmd = &cobra.Command{
 func runServer(cmd *cobra.Command, args []string) {
 
 	// Zap Logger
-	var logger *zap.Logger
-	var err error
-	if Debug {
-		logger, err = zap.NewDevelopment()
-		if err != nil {
-			log.Fatal(err)
-		}
-	} else {
-		logger, err = zap.NewProduction()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
+	logger := logger.GetZapLogger(Debug)
 	//nolint
 	defer logger.Sync()
 

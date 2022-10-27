@@ -2,10 +2,9 @@ package oidcserver
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"os"
 
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/oauth2-proxy/mockoidc"
 	"gopkg.in/yaml.v2"
 )
@@ -50,7 +49,7 @@ func (u *YAMLUser) Claims(scope []string, claims *mockoidc.IDTokenClaims) (jwt.C
 	// merge standard claims into User Access Token Claims
 	userClaims["aud"] = claims.Audience
 	userClaims["exp"] = claims.ExpiresAt
-	userClaims["jti"] = claims.Id
+	userClaims["jti"] = claims.ID
 	userClaims["iat"] = claims.IssuedAt
 	userClaims["iss"] = claims.Issuer
 	userClaims["nbf"] = claims.NotBefore
@@ -68,7 +67,7 @@ func (u *YAMLUser) Claims(scope []string, claims *mockoidc.IDTokenClaims) (jwt.C
 }
 
 // AccessTokenClaims just return standard claims
-func (u *YAMLUser) AccessTokenClaims(claims *jwt.StandardClaims) (jwt.Claims, error) {
+func (u *YAMLUser) AccessTokenClaims(claims *jwt.RegisteredClaims) (jwt.Claims, error) {
 
 	if u.UserAccessTokenClaims != nil {
 
@@ -77,7 +76,7 @@ func (u *YAMLUser) AccessTokenClaims(claims *jwt.StandardClaims) (jwt.Claims, er
 		// merge standard claims into User Access Token Claims
 		userClaims["aud"] = claims.Audience
 		userClaims["exp"] = claims.ExpiresAt
-		userClaims["jti"] = claims.Id
+		userClaims["jti"] = claims.ID
 		userClaims["iat"] = claims.IssuedAt
 		userClaims["iss"] = claims.Issuer
 		userClaims["nbf"] = claims.NotBefore
@@ -95,13 +94,8 @@ func (u *YAMLUser) AccessTokenClaims(claims *jwt.StandardClaims) (jwt.Claims, er
 }
 
 func NewYAMLUser(filename string) (*YAMLUser, error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
 
-	defer file.Close()
-	data, err := ioutil.ReadAll(file)
+	data, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}

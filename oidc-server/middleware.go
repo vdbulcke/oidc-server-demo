@@ -3,7 +3,6 @@ package oidcserver
 import (
 	"bytes"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strings"
 
@@ -40,7 +39,7 @@ func (s *OIDCServer) DebugLoggerMiddleware(next http.Handler) http.Handler {
 		}
 
 		// don't close body here
-		req.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+		req.Body = io.NopCloser(bytes.NewBuffer(body))
 
 		s.logger.Info("Request",
 			zap.String("method", req.Method),

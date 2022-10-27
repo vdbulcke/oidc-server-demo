@@ -40,6 +40,48 @@ client_secret: secret
 
 
 
+##
+## Vault Crypto Backend
+##
+### Since: v0.6.0
+### Use vault Transit secret engine 
+### for JWT signing and verifying
+# vault_crypto_backend: 
+#   ## The vault API address
+#   ## NOTE: can be specified with 'VAULT_ADDR' env var
+#   address: http://127.0.0.1:8200 
+#   ## The vault authentication token 
+#   ## WARNING must have the permission to 'read', 'sign', 'verify'
+#   ##         the transit key
+#   ## NOTE:can be specified with 'VAULT_TOKEN' env var
+#   token: "root-token"
+
+#   ## JWT signing alg 
+#   ### Warning: this must be a supported 
+#   ###          algorithm by your transit key
+#   ### Valid values: 
+#   ###  - RS256 RS384 RS512 ES256 ES384 ES512
+#   jwt_signing_alg: RS256
+
+#   ## Vault Transit Key name
+#   transit_key: rsa
+
+
+#   ## Vault Transit Mount 
+#   ### Default: transit/
+#   # transit_mount: alternative/path
+
+#   ## Backend key sync period duration
+#   ##   period at which the backend read the 
+#   ##   transit key info to detect if there has been 
+#   ##   key rotation
+#   ### WARNING: valid duration are 's', 'm', 'h'
+#   ### Default: 5m
+#   # sync_duration: 1h
+
+  
+  
+
 ## Default Mock User (Mandatory)
 ## 
 mock_user:
