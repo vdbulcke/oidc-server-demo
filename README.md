@@ -12,7 +12,7 @@ Built on the shoulders of giants [https://github.com/oauth2-proxy/mockoidc](http
 * OIDC Flows: Authorization Code, Refresh Token, PKCE => from `https://github.com/oauth2-proxy/mockoidc` 
 * Pushed Authorization Request
 * Generic Mock Users: Inject Arbitrary structured claims in ID Token and/or userinfo.
-
+* Support for Hashicorp Vault transit backend as a Software Security Module
 ## Documentation
 
 Install, configuration documentation can be found at [https://vdbulcke.github.io/oidc-server-demo/](https://vdbulcke.github.io/oidc-server-demo/).
@@ -24,6 +24,7 @@ Start the server with
 oidc-server start --config example/config.yaml
 ```
 
+Docker [container](https://github.com/vdbulcke/oidc-server/pkgs/container/oidc-server)
 ### Debugging
 
 Using the `--debug` flags will log each request made to the the mock oidc server
