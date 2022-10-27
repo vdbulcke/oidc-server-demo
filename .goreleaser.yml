@@ -88,22 +88,24 @@ dockers:
     goarm: ''
 
     image_templates:
-    - "vdbulcke/oidc-server:v{{ .Version }}"
+    - "ghcr.io/vdbulcke/oidc-server:v{{ .Version }}"
 
 release:
   ## set github header and footer
   header: |
     ## Docker
 
+    [https://github.com/vdbulcke/oidc-server/pkgs/container/oidc-server](https://github.com/vdbulcke/oidc-server/pkgs/container/oidc-server)
+
     
     ```bash
-    docker pull vdbulcke/oidc-server:v{{ .Version }}
+    docker pull ghcr.io/vdbulcke/oidc-server:v{{ .Version }}
     ```
 
     ### Run
 
     ```bash 
-    docker run --rm  -v /path/to/your/config.yaml:/app/config.yaml:z -p 8080:5557 vdbulcke/oidc-server:v{{ .Version }} --debug 
+    docker run --rm  -v /path/to/your/config.yaml:/app/config.yaml:z -p 8080:5557 ghcr.io/vdbulcke/oidc-server:v{{ .Version }} --debug 
     ```
 
     NOTE: the `issuer_base_url` is required for docker.
