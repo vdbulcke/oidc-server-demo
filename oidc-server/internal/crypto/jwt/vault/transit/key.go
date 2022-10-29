@@ -144,10 +144,10 @@ func (k *VaultTransitKey) SyncKeyInfo() error {
 		return err
 	}
 
-	minVersionJson, ok := keyInfo.Data["min_available_version"].(json.Number)
+	minVersionJson, ok := keyInfo.Data["min_decryption_version"].(json.Number)
 	if !ok {
-		k.logger.Debug("Key min_available_version not found in transit read response", zap.Any("resp", keyInfo))
-		return fmt.Errorf("key min_available_version not found for %s", keyPath)
+		k.logger.Debug("Key min_decryption_version not found in transit read response", zap.Any("resp", keyInfo))
+		return fmt.Errorf("key min_decryption_version not found for %s", keyPath)
 	}
 
 	minVersion, err := minVersionJson.Int64()
@@ -158,7 +158,7 @@ func (k *VaultTransitKey) SyncKeyInfo() error {
 	pubKeys := []*TransitPublicKey{}
 
 	// for each pub keys within range min version to latest_version
-	for i := int(minVersion) + 1; i <= int(keyVersion); i++ {
+	for i := int(minVersion); i <= int(keyVersion); i++ {
 
 		pub, err := k.GetPublicKeyFromTransitResponse(keyInfo, i)
 		if err != nil {
