@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="v0.6.1"></a>
+## [v0.6.1] - 2022-10-29
+### Bug Fixes
+- fefcc14 - transit key rotation issue ([#12](https://github.com/vdbulcke/oidc-server-demo/issues/12))
+
+
 <a name="v0.6.0"></a>
 ## [v0.6.0] - 2022-10-27
 ### Features
@@ -42,7 +48,8 @@
 - 2a8394b - Standalone mock oidc server
 
 
-[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.1...HEAD
+[v0.6.1]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.3.0...v0.4.0
