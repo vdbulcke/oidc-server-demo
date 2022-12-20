@@ -25,16 +25,23 @@ func GetZapLogger(Debug bool) *zap.Logger {
 		zapConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 		consoleEncoder := zapcore.NewJSONEncoder(zapConfig)
 
+		// First, define our level-handling logic.
+		errorPriority := zap.LevelEnablerFunc(func(lvl zapcore.Level) bool {
+			return lvl >= zapcore.ErrorLevel
+		})
+		infoPriority := zap.LevelEnablerFunc(func(lvl zapcore.Level) bool {
+			return lvl > zapcore.DebugLevel && lvl < zapcore.ErrorLevel
+		})
+
 		// default writer for logger
-		consoleDebugging := zapcore.Lock(os.Stdout)
+		consoleStdout := zapcore.Lock(os.Stdout)
 		consoleErrors := zapcore.Lock(os.Stderr)
 
 		// set log level to writer
 		core := zapcore.NewTee(
 			// zapcore.NewCore(consoleEncoder, consoleDebugging, zap.DebugLevel),
-			zapcore.NewCore(consoleEncoder, consoleDebugging, zap.InfoLevel),
-			zapcore.NewCore(consoleEncoder, consoleErrors, zap.WarnLevel),
-			zapcore.NewCore(consoleEncoder, consoleErrors, zap.ErrorLevel),
+			zapcore.NewCore(consoleEncoder, consoleStdout, infoPriority),
+			zapcore.NewCore(consoleEncoder, consoleErrors, errorPriority),
 		)
 
 		// add function caller and stack trace on error
