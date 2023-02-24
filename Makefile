@@ -42,7 +42,7 @@ test:
 .PHONY: gen-doc
 gen-doc: 
 	mkdir -p ./doc
-	./dist/oidc-server-demo_linux_amd64/oidc-server documentation  --dir ./doc
+	./dist/oidc-server-demo_linux_amd64_v1/oidc-server documentation  --dir ./doc
 
 .PHONY: doc-site
 doc-site: 
