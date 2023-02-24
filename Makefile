@@ -7,20 +7,20 @@ scan:
 
 .PHONY: build
 build: 
-	goreleaser build --rm-dist
+	goreleaser build --clean
 
 .PHONY: build-snapshot
 build-snapshot: 
-	goreleaser build --rm-dist --snapshot --single-target
+	goreleaser build --clean --snapshot --single-target
 
 
 .PHONY: release-skip-publish
 release-skip-publish: 
-	goreleaser release --rm-dist --skip-publish 
+	goreleaser release --clean --skip-publish 
 
 .PHONY: release-snapshot
 release-snapshot: 
-	goreleaser release --rm-dist --skip-publish --snapshot
+	goreleaser release --clean --skip-publish --snapshot
 
 
 .PHONY: lint
