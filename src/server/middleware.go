@@ -20,6 +20,17 @@ func (s *OIDCServer) InfiniteMockUserMiddleware(next http.Handler) http.Handler 
 			}
 		}
 
+		err := req.ParseForm()
+		if err == nil {
+
+			if strings.HasSuffix(req.URL.Path, "token") && req.FormValue("grant_type") == "client_credentials" {
+				if len(s.m.UserQueue.Queue) == 0 {
+					s.logger.Debug("adding mock user to queue")
+					s.m.QueueUser(&s.config.MockUser)
+				}
+			}
+		}
+
 		// custom middleware logic here...
 		next.ServeHTTP(rw, req)
 	})

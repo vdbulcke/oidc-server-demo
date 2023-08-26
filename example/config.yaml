@@ -23,10 +23,12 @@ client_secret: secret
 ## Supported Scropes (optional)
 ### List of supported scropes by the OIDC server
 ### Default to same default as https://github.com/oauth2-proxy/mockoidc
-# supported_scopes: 
-# - openid
-# - profile
-# - roles
+supported_scopes: 
+- openid
+- profile
+- roles
+- api
+- read
 
 ### Supported challenge method (Optional)
 ###
@@ -133,6 +135,9 @@ mock_user:
       - hello: world
       - bar: baz
 
+    ## scope: space-separated list of scopes
+    ## https://www.rfc-editor.org/rfc/rfc7662#section-2.2
+    scope: "openid read api"
 
   ## Refresh Token Claims (Optional)
   ### Arbitrary key/values claims to 
