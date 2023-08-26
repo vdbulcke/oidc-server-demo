@@ -15,11 +15,14 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 )
 
+require gopkg.in/yaml.v3 v3.0.1
+
 require (
 	github.com/armon/go-metrics v0.3.9 // indirect
 	github.com/armon/go-radix v1.0.0 // indirect
 	github.com/cenkalti/backoff/v3 v3.0.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
+	github.com/creasty/defaults v1.7.0
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
@@ -71,6 +74,6 @@ require (
 )
 
 // from github.com/vdbulcke/mockoidc upstream branch
-replace github.com/oauth2-proxy/mockoidc => github.com/vdbulcke/mockoidc v0.4.0
+replace github.com/oauth2-proxy/mockoidc => github.com/vdbulcke/mockoidc v0.5.0
 
 // replace github.com/oauth2-proxy/mockoidc => ../mockoidc

@@ -4,13 +4,14 @@ import "testing"
 
 func TestValidateConfig(t *testing.T) {
 
-	filename := "../example/config.yaml"
+	filename := "../../example/config.yaml"
 
 	config, err := ParseConfig(filename)
 	if err != nil {
 		t.Fatal(err)
 	}
 
+	t.Log(config)
 	if !ValidateConfig(config) {
 		t.Log("invalid config")
 		t.Fail()

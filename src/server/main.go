@@ -131,6 +131,12 @@ func NewOIDCServer(l *zap.Logger, c *cfg.OIDCServerConfig) (*OIDCServer, error) 
 		}
 	}
 
+	m.SetAccessTokenTLL(c.AccessTokenTTL)
+	m.SetRefreshTokenTLL(c.RefreshTokenTTL)
+	if c.IssueNewRefreshTokenOnRefreshToken {
+		m.EnableIssueNewRefreshTokenOnRefreshToken()
+	}
+
 	return &OIDCServer{
 		logger: l,
 		config: c,

@@ -5,8 +5,9 @@ import (
 	"os"
 	"time"
 
+	"github.com/creasty/defaults"
 	"github.com/go-playground/validator"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 var (
@@ -28,6 +29,10 @@ type OIDCServerConfig struct {
 	// Folder where to find mocked user if not defined the user in mock_user will be returned
 	MockUserFolder string `yaml:"mock_user_folder"`
 
+	IssueNewRefreshTokenOnRefreshToken bool          `yaml:"issue_new_refresh_token_on_refresh_token" default:"false" `
+	AccessTokenTTL                     time.Duration `yaml:"access_token_ttl_duration"  default:"10m" validate:"required"`
+	RefreshTokenTTL                    time.Duration `yaml:"refresh_token_ttl_duration"  default:"1h" validate:"required"`
+
 	// Listen Address
 	ListenAddress string
 	// Listen Port
@@ -47,6 +52,24 @@ type VaultCryptoBackendConfig struct {
 	JWTSigningAlg  string `yaml:"jwt_signing_alg"  validate:"required,oneof=RS256 RS384 RS512 ES256 ES384 ES512"`
 
 	SyncPeriodDuration string `yaml:"sync_duration" validate:"required"`
+}
+
+func (c *OIDCServerConfig) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	// source: https://stackoverflow.com/questions/56049589/what-is-the-way-to-set-default-values-on-keys-in-lists-when-unmarshalling-yaml-i
+	// set default
+	err := defaults.Set(c)
+	if err != nil {
+		return err
+	}
+
+	type plain OIDCServerConfig
+
+	if err := unmarshal((*plain)(c)); err != nil {
+		return err
+	}
+
+	return nil
+
 }
 
 // ValidateConfig validate config

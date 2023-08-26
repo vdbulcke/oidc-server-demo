@@ -38,7 +38,20 @@ client_secret: secret
 # - plain
 # - S256
 
+## Issue New RefreshToken on RefreshToken Grant (optional)
+### since v0.7.0
+### Default: false
+# issue_new_refresh_token_on_refresh_token: true
 
+## AccessToken TTL (optional)
+### since v0.7.0
+### Default: 10m
+# access_token_ttl_duration: 20m
+
+## RefreshToken TTL (optional)
+### since v0.7.0
+### Default: 1h
+# refresh_token_ttl_duration: 30m
 
 ##
 ## Vault Crypto Backend
@@ -121,6 +134,14 @@ mock_user:
       - bar: baz
 
 
+  ## Refresh Token Claims (Optional)
+  ### Arbitrary key/values claims to 
+  ### add in the refresh_token
+  ### since v0.7.0
+  refresh_token_claims: 
+    foo: 
+      - hello: world
+      - bar: baz
 
   ## Userinfo Claims (optional)
   ### Arbitrary key/values claims to 
@@ -145,4 +166,4 @@ mock_user:
 ## Additional Mock Users
 ##  since version v0.3.0
 ### Users loaded in the UserQueue
-mock_user_folder: ./example/users
+# mock_user_folder: ./example/users

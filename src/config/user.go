@@ -27,10 +27,11 @@ func convert(i interface{}) interface{} {
 }
 
 type YAMLUser struct {
-	Subject               string                      `yaml:"sub,omitempty" validate:"required"`
-	IDTokenClaims         map[interface{}]interface{} `yaml:"id_token_claims,omitempty"  validate:"required"`
-	UserAccessTokenClaims map[interface{}]interface{} `yaml:"access_token_claims,omitempty" `
-	UserinfoClaims        map[interface{}]interface{} `yaml:"userinfo_claims,omitempty"  validate:"required"`
+	Subject                string                      `yaml:"sub,omitempty" validate:"required"`
+	IDTokenClaims          map[interface{}]interface{} `yaml:"id_token_claims,omitempty"  validate:"required"`
+	UserAccessTokenClaims  map[interface{}]interface{} `yaml:"access_token_claims,omitempty" `
+	UserRefreshTokenClaims map[interface{}]interface{} `yaml:"refresh_token_claims,omitempty" `
+	UserinfoClaims         map[interface{}]interface{} `yaml:"userinfo_claims,omitempty"  validate:"required"`
 }
 
 func (u *YAMLUser) ID() string {
@@ -87,6 +88,32 @@ func (u *YAMLUser) AccessTokenClaims(claims *jwt.RegisteredClaims) (jwt.Claims, 
 		}
 
 		// return u.UserAccessTokenClaims, nil
+		return userClaims, nil
+	}
+
+	return claims, nil
+}
+
+// RefreshTokenClaims just return standard claims
+func (u *YAMLUser) RefreshTokenClaims(claims *jwt.RegisteredClaims) (jwt.Claims, error) {
+
+	if u.UserRefreshTokenClaims != nil {
+
+		userClaims := jwt.MapClaims{}
+
+		// merge standard claims into User Access Token Claims
+		userClaims["aud"] = claims.Audience
+		userClaims["exp"] = claims.ExpiresAt
+		userClaims["jti"] = claims.ID
+		userClaims["iat"] = claims.IssuedAt
+		userClaims["iss"] = claims.Issuer
+		userClaims["nbf"] = claims.NotBefore
+		userClaims["sub"] = claims.Subject
+
+		for k, v := range u.UserRefreshTokenClaims {
+			userClaims[k.(string)] = convert(v)
+		}
+
 		return userClaims, nil
 	}
 
