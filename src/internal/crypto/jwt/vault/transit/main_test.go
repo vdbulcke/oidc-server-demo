@@ -7,7 +7,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	vault "github.com/hashicorp/vault/api"
-	"github.com/vdbulcke/oidc-server-demo/oidc-server/logger"
+	"github.com/vdbulcke/oidc-server-demo/src/logger"
 )
 
 func TestJWTsigningES512(t *testing.T) {

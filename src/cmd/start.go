@@ -5,8 +5,10 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	oidcserver "github.com/vdbulcke/oidc-server-demo/oidc-server"
-	"github.com/vdbulcke/oidc-server-demo/oidc-server/logger"
+	cfg "github.com/vdbulcke/oidc-server-demo/src/config"
+
+	"github.com/vdbulcke/oidc-server-demo/src/logger"
+	oidcserver "github.com/vdbulcke/oidc-server-demo/src/server"
 	"go.uber.org/zap"
 )
 
@@ -51,7 +53,7 @@ func runServer(cmd *cobra.Command, args []string) {
 	defer logger.Sync()
 
 	// parse config
-	config, err := oidcserver.ParseConfig(configFilename)
+	config, err := cfg.ParseConfig(configFilename)
 	if err != nil {
 		logger.Error("parsing config", zap.Error(err))
 		os.Exit(1)
@@ -65,7 +67,7 @@ func runServer(cmd *cobra.Command, args []string) {
 	config.Debug = Debug
 
 	// validate config
-	if !oidcserver.ValidateConfig(config) {
+	if !cfg.ValidateConfig(config) {
 		logger.Error("validating config", zap.Error(errors.New("Validation Error")))
 		os.Exit(1)
 	}

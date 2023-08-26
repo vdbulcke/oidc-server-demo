@@ -2,8 +2,8 @@
 
 .PHONY:	scan
 scan: 
-	go list -json -deps |  nancy sleuth
 	trivy fs . 
+	go list -json -deps |  nancy sleuth
 
 .PHONY: build
 build: 

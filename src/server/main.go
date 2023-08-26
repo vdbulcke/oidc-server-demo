@@ -12,7 +12,9 @@ import (
 
 	vault "github.com/hashicorp/vault/api"
 	"github.com/oauth2-proxy/mockoidc"
-	"github.com/vdbulcke/oidc-server-demo/oidc-server/internal/crypto"
+	cfg "github.com/vdbulcke/oidc-server-demo/src/config"
+	"github.com/vdbulcke/oidc-server-demo/src/internal/crypto"
+
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v2"
 )
@@ -24,10 +26,10 @@ type OIDCServer struct {
 
 	ln net.Listener
 
-	config *OIDCServerConfig
+	config *cfg.OIDCServerConfig
 }
 
-func NewOIDCServer(l *zap.Logger, c *OIDCServerConfig) (*OIDCServer, error) {
+func NewOIDCServer(l *zap.Logger, c *cfg.OIDCServerConfig) (*OIDCServer, error) {
 
 	// set Supported Scopes
 	if len(c.SupportedScopes) != 0 {
@@ -137,8 +139,8 @@ func NewOIDCServer(l *zap.Logger, c *OIDCServerConfig) (*OIDCServer, error) {
 	}, nil
 }
 
-func ReadMockUser(path string) (*YAMLUser, error) {
-	var user YAMLUser
+func ReadMockUser(path string) (*cfg.YAMLUser, error) {
+	var user cfg.YAMLUser
 	//log.Printf("Reading mock user from filename: %s\n", path)
 	yamlBytes, err := os.ReadFile(path)
 	if err != nil {
@@ -152,7 +154,7 @@ func ReadMockUser(path string) (*YAMLUser, error) {
 	return &user, nil
 }
 
-func CreateVaultClient(c *OIDCServerConfig) (*vault.Client, error) {
+func CreateVaultClient(c *cfg.OIDCServerConfig) (*vault.Client, error) {
 	config := vault.DefaultConfig()
 	config.Address = c.VaultCryptoBackend.VaultAddress
 

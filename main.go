@@ -1,6 +1,6 @@
 package main
 
-import "github.com/vdbulcke/oidc-server-demo/cmd"
+import "github.com/vdbulcke/oidc-server-demo/src/cmd"
 
 func main() {
 	// cobra commands

@@ -22,7 +22,11 @@ builds:
       # - 386
     ldflags:
       ## auto inject commit and version at build time
-      -  -X github.com/vdbulcke/oidc-server-demo/cmd.GitCommit={{ .ShortCommit }} -X github.com/vdbulcke/oidc-server-demo/cmd.Version=v{{ .Version }}   -X github.com/vdbulcke/oidc-server-demo/cmd.Date={{ .CommitDate }} -X github.com/vdbulcke/oidc-server-demo/cmd.BuiltBy=goreleaser
+      - -X github.com/vdbulcke/oidc-server-demo/src/cmd.GitCommit={{ .ShortCommit }} 
+      - -X github.com/vdbulcke/oidc-server-demo/src/cmd.Version=v{{ .Version }}   
+      - -X github.com/vdbulcke/oidc-server-demo/src/cmd.Date={{ .CommitDate }} 
+      - -X github.com/vdbulcke/oidc-server-demo/src/cmd.BuiltBy=goreleaser
+
 archives:
   - 
     # replacements:

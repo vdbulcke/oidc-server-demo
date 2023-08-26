@@ -10,7 +10,7 @@ import (
 	"github.com/carlescere/scheduler"
 	"github.com/golang-jwt/jwt/v4"
 	vault "github.com/hashicorp/vault/api"
-	"github.com/vdbulcke/oidc-server-demo/oidc-server/internal/crypto/jwt/vault/transit"
+	"github.com/vdbulcke/oidc-server-demo/src/internal/crypto/jwt/vault/transit"
 	"go.uber.org/zap"
 	"gopkg.in/square/go-jose.v2"
 )
