@@ -2,6 +2,28 @@
 ## [Unreleased]
 
 
+<a name="v0.7.0"></a>
+## [v0.7.0] - 2023-08-26
+### Code Refactoring
+- c23d2eb - code under src/ + bump go version 1.21
+
+### Features
+- ae610c4 - introspect endpoint + client_credentials ([#20](https://github.com/vdbulcke/oidc-server-demo/issues/20))
+- 69878fd - custom refresh token claims ([#19](https://github.com/vdbulcke/oidc-server-demo/issues/19))
+
+
+<a name="v0.6.3"></a>
+## [v0.6.3] - 2023-02-24
+### Features
+- f5c43bd - multi arch docker build ([#16](https://github.com/vdbulcke/oidc-server-demo/issues/16))
+
+
+<a name="v0.6.2"></a>
+## [v0.6.2] - 2022-12-20
+### Bug Fixes
+- 82d7d1d - zap logger double entries [#14](https://github.com/vdbulcke/oidc-server-demo/issues/14)
+
+
 <a name="v0.6.1"></a>
 ## [v0.6.1] - 2022-10-29
 ### Bug Fixes
@@ -48,7 +70,10 @@
 - 2a8394b - Standalone mock oidc server
 
 
-[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.7.0...HEAD
+[v0.7.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.3...v0.7.0
+[v0.6.3]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.2...v0.6.3
+[v0.6.2]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.4.0...v0.5.0
