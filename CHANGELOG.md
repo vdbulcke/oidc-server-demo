@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="v0.8.0"></a>
+## [v0.8.0] - 2023-08-28
+### Features
+- 443453f - go template for introspect response ([#23](https://github.com/vdbulcke/oidc-server-demo/issues/23))
+
+
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-26
 ### Code Refactoring
@@ -70,7 +76,8 @@
 - 2a8394b - Standalone mock oidc server
 
 
-[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.8.0...HEAD
+[v0.8.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.3...v0.7.0
 [v0.6.3]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.2...v0.6.3
 [v0.6.2]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.6.1...v0.6.2
