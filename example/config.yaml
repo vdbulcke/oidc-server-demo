@@ -94,7 +94,28 @@ supported_scopes:
 #   ### Default: 5m
 #   # sync_duration: 1h
 
-  
+
+
+
+## Instropect Response Template  (optional)
+### since v0.8.0
+### format: map[string]interface{}
+### Use go template https://pkg.go.dev/text/template
+### syntax to template string properties on introspect
+### response based on claims from Access or Refresh token
+### WARNING: go template only works with string value
+introspect_response_template:
+  ## template standard claims
+  ## https://www.rfc-editor.org/rfc/rfc7662.html#section-2.2
+  client_id: "{{index .aud 0}}"
+  user_id: "{{ .sub }}"
+  username: "{{ .sub }}"
+
+  ## works as well with static properties 
+  foo: 
+  - bar
+  - baz
+
   
 
 ## Default Mock User (Mandatory)
@@ -143,10 +164,10 @@ mock_user:
   ### Arbitrary key/values claims to 
   ### add in the refresh_token
   ### since v0.7.0
-  refresh_token_claims: 
-    foo: 
-      - hello: world
-      - bar: baz
+  # refresh_token_claims: 
+  #   foo: 
+  #     - hello: world
+  #     - bar: baz
 
   ## Userinfo Claims (optional)
   ### Arbitrary key/values claims to 

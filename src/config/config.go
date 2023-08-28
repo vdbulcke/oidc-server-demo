@@ -29,9 +29,10 @@ type OIDCServerConfig struct {
 	// Folder where to find mocked user if not defined the user in mock_user will be returned
 	MockUserFolder string `yaml:"mock_user_folder"`
 
-	IssueNewRefreshTokenOnRefreshToken bool          `yaml:"issue_new_refresh_token_on_refresh_token" default:"false" `
-	AccessTokenTTL                     time.Duration `yaml:"access_token_ttl_duration"  default:"10m" validate:"required"`
-	RefreshTokenTTL                    time.Duration `yaml:"refresh_token_ttl_duration"  default:"1h" validate:"required"`
+	IssueNewRefreshTokenOnRefreshToken bool                   `yaml:"issue_new_refresh_token_on_refresh_token" default:"false" `
+	AccessTokenTTL                     time.Duration          `yaml:"access_token_ttl_duration"  default:"10m" validate:"required"`
+	RefreshTokenTTL                    time.Duration          `yaml:"refresh_token_ttl_duration"  default:"1h" validate:"required"`
+	IntrospectTemplate                 map[string]interface{} `yaml:"introspect_response_template,omitempty" `
 
 	// Listen Address
 	ListenAddress string

@@ -136,6 +136,7 @@ func NewOIDCServer(l *zap.Logger, c *cfg.OIDCServerConfig) (*OIDCServer, error) 
 	if c.IssueNewRefreshTokenOnRefreshToken {
 		m.EnableIssueNewRefreshTokenOnRefreshToken()
 	}
+	m.SetIntrospectTemplate(c.IntrospectTemplate)
 
 	return &OIDCServer{
 		logger: l,

@@ -74,6 +74,6 @@ require (
 )
 
 // from github.com/vdbulcke/mockoidc upstream branch
-replace github.com/oauth2-proxy/mockoidc => github.com/vdbulcke/mockoidc v0.6.0
+replace github.com/oauth2-proxy/mockoidc => github.com/vdbulcke/mockoidc v0.7.0
 
 // replace github.com/oauth2-proxy/mockoidc => ../mockoidc
