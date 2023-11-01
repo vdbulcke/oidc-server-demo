@@ -56,6 +56,7 @@ func (s *OIDCServer) DebugLoggerMiddleware(next http.Handler) http.Handler {
 			zap.String("method", req.Method),
 			zap.String("url", req.URL.Path),
 			zap.Any("headers", req.Header),
+			zap.Any("param", req.Form),
 			zap.String("body", string(body)),
 		)
 		// custom middleware logic here...
