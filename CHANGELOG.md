@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="v0.8.3"></a>
+## [v0.8.3] - 2024-04-01
+### Bug Fixes
+- 623fef0 - update dependencies
+
+
 <a name="v0.8.2"></a>
 ## [v0.8.2] - 2023-12-26
 ### Bug Fixes
@@ -88,7 +94,8 @@
 - 2a8394b - Standalone mock oidc server
 
 
-[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.8.2...HEAD
+[Unreleased]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.8.3...HEAD
+[v0.8.3]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.8.2...v0.8.3
 [v0.8.2]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.8.1...v0.8.2
 [v0.8.1]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.8.0...v0.8.1
 [v0.8.0]: https://github.com/vdbulcke/oidc-server-demo/compare/v0.7.0...v0.8.0
