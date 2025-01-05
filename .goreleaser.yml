@@ -101,7 +101,7 @@ dockers:
     ## Mutli platform 
     use: buildx
     build_flag_templates:
-    - --platform=linux/arm64/v8
+    - --platform=linux/amd64
 
     image_templates:
     - "ghcr.io/vdbulcke/oidc-server:v{{ .Version }}"
