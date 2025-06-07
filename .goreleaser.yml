@@ -15,8 +15,8 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
-      - darwin
-      - windows
+      # - darwin
+      # - windows
     goarch:
       - amd64
       - arm64
@@ -28,6 +28,9 @@ builds:
       - -X github.com/vdbulcke/oidc-server-demo/src/cmd.Version=v{{ .Version }}   
       - -X github.com/vdbulcke/oidc-server-demo/src/cmd.Date={{ .CommitDate }} 
       - -X github.com/vdbulcke/oidc-server-demo/src/cmd.BuiltBy=goreleaser
+
+    flags:
+      - -trimpath
 
 archives:
   - 
